@@ -1,0 +1,11 @@
+Select Distinct p.id, p.name
+From person p
+JOIN get_fit_now_member m
+ON p.id=m.person_id
+JOIN get_fit_now_check_in c
+ON m.id=c.membership_id
+JOIN interview i
+ON i.person_id=i.person_id
+JOIN drivers_license d
+ON d.id=p.license_id
+Where c.check_in_date = 20180109 AND m.membership_status='gold' and c.membership_id LIKE '48Z%';
