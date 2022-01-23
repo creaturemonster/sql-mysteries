@@ -1,0 +1,105 @@
+--There are two witnesses.
+--The first witness lives at the last house on Northwestern Dr and the second witness named Annabel lives somewhere on Franklin Avenue
+Select *
+From crime_scene_report
+Where city='SQL City' and date='20180115' and type='murder';
+
+--Annabel's id is 16371
+--license id is 490173
+--Address is 103 Franklin Ave 
+--SSN is 318-77-1143
+Select *
+From person
+Where name = 'Annabel Miller' and address_street_name='Franklin Ave';
+
+
+--membership id = 90081
+--person id = 16371
+--Membership start date is 20160208
+--Gold Member
+Select *
+From get_fit_now_member
+Where person_id='16371';
+
+--She saw the killer at her gym. She last saw him on January 9th. 
+Select *
+From interview
+Where person_id=16371;
+
+--She checked in at 4pm and checked out at 5pm. So the killer must have been in the gym during this timeframe too
+Select * 
+From get_fit_now_check_in 
+Where membership_id='90081';
+
+--Look for all members in the gym at this time
+Select * 
+From get_fit_now_check_in
+Where check_in_date=20180109 and check_in_time BETWEEN 1600 and 1700;
+
+--48Z7A is Joe Germuska
+Select *
+From get_fit_now_member
+Where id='48Z7A';
+
+Select * 
+From interview
+Where person_id=28819;
+
+Select * 
+From person
+where id=28819;
+
+Select *
+From facebook_event_checkin
+Where person_id=28819;
+
+Select * 
+From drivers_license
+Where gender='male';
+
+Select *
+From drivers_license
+Where id=173289;
+
+Select *
+From income
+Where ssn=138909730;
+
+--person_id=14887
+--Morty Shapiro  lives at the last house. He is the second witness
+Select * 
+From person
+Where address_street_name='Northwestern Dr'
+Order By address_number DESC;
+
+--He was at the Funky Grooves Tour on January 15, 2018 according to Facebook
+Select * 
+From facebook_event_checkin
+Where person_id=14887;
+
+--He saw the killer with a Get Fit Now Gym Back with membership number starting with 48Z
+--Only Gold members have those bags
+-- His car license plate starts with H42W
+Select * 
+From interview
+where person_id=14887;
+
+Select *
+From drivers_license
+Where plate_number="H42W";
+
+--Only two people were working out at the gym on January 9th and their membership ID starts with 48Z
+Select *
+From get_fit_now_check_in
+Where membership_id LIKE '48Z%' and check_in_date=20180109;
+
+--One of them is Jeremy Bowers
+Select *
+From get_fit_now_member
+Where id = '48Z55';
+
+--Test to see if Jeremy Bowers is the right suspect. 
+INSERT INTO solution values (1, 'Jeremy Bowers');
+    Select value From solution;
+    
+
